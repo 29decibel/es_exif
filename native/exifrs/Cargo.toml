@@ -1,0 +1,15 @@
+[package]
+name = "exifrs"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[lib]
+name = "exifrs"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.24.0"
+kamadak-exif = "0.5.4"
+
