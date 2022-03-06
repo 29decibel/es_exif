@@ -7,6 +7,10 @@ Example usage:
 EsExif.parse "./test_photos/_DSF2568.JPG"
 ```
 
+## TODO
+[] Expose more native fields types instead of just string
+[] tests
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
