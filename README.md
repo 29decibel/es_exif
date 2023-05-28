@@ -1,5 +1,7 @@
 # EsExif
 
+> Working in progress. Please do not use in production.
+
 Elixir wrapper of rust's [exif](https://docs.rs/kamadak-exif/latest/exif/)
 
 Example usage:

@@ -17,7 +17,7 @@ defmodule EsExif do
         result =
           fields
           |> Enum.reduce(%{}, fn %{name: name, value: value}, acc ->
-            acc |> Map.put_new(name, value |> trim_value)
+            acc |> Map.put_new(name, value |> trim_value |> parse_value(name))
           end)
 
         {:ok, result}
@@ -27,9 +27,30 @@ defmodule EsExif do
     end
   end
 
+  # triming values
   defp trim_value(str) when is_binary(str) do
     str |> String.trim("\"") |> String.trim()
   end
 
   defp trim_value(str), do: str
+
+  # parse value to correct types
+  defp parse_value(value, "DateTimeDigitized") when is_binary(value) do
+    parse_date(value)
+  end
+
+  defp parse_value(value, "DateTimeOriginal") when is_binary(value) do
+    parse_date(value)
+  end
+
+  defp parse_value(value, name), do: value
+
+  defp parse_date(value) do
+    with {:ok, date} <- NaiveDateTime.from_iso8601(value) do
+      date
+    else
+      {:error, _} ->
+        value
+    end
+  end
 end
