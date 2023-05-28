@@ -29,15 +29,15 @@ defmodule EsExif.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler, "~> 0.24.0"}
+      {:rustler, "~> 0.24.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
   defp package() do
     [
       name: "es_exif",
-      files: ~w(lib .formatter.exs mix.exs README* readme* LICENSE*
-                license* CHANGELOG* changelog* native),
+      files: ~w(lib priv .formatter.exs mix.exs README* LICENSE* native),
       licenses: ["MIT License"],
       links: %{"GitHub" => "https://github.com/29decibel/es_exif"}
     ]
