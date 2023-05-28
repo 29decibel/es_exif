@@ -8,6 +8,7 @@ defmodule EsExif.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       description: description(),
+      package: package(),
       deps: deps(),
       name: "EsExif",
       source_url: "https://github.com/29decibel/es_exif"
@@ -29,6 +30,16 @@ defmodule EsExif.MixProject do
   defp deps do
     [
       {:rustler, "~> 0.24.0"}
+    ]
+  end
+
+  defp package() do
+    [
+      name: "es_exif",
+      files: ~w(lib .formatter.exs mix.exs README* readme* LICENSE*
+                license* CHANGELOG* changelog* native),
+      licenses: ["MIT License"],
+      links: %{"GitHub" => "https://github.com/29decibel/es_exif"}
     ]
   end
 end
