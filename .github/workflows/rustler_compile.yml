@@ -27,11 +27,6 @@ jobs:
               os: ubuntu-20.04,
               use-cross: true,
             }
-          - {
-              target: aarch64-unknown-linux-musl,
-              os: ubuntu-20.04,
-              use-cross: true,
-            }
 
           - {
               target: riscv64gc-unknown-linux-gnu,
