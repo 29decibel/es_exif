@@ -7,6 +7,31 @@ defmodule EsExif do
     def parse(_a), do: :erlang.nif_error(:nif_not_loaded)
   end
 
+  @integer_fields [
+    "YResolution",
+    "PixelXDimension",
+    "FocalPlaneYResolution",
+    "FocalLength",
+    "FocalLengthIn35mmFilm",
+    "PhotographicSensitivity",
+    "MaxApertureValue",
+    "XResolution",
+    "ApertureValue",
+    "ExposureBiasValue"
+  ]
+
+  @float_fields [
+    "BrightnessValue",
+    "FNumber",
+    "CompressedBitsPerPixel",
+    "Gamma"
+  ]
+
+  @date_fields [
+    "DateTimeDigitized",
+    "DateTimeOriginal"
+  ]
+
   @moduledoc """
   Documentation for `EsExif`.
   """
@@ -35,15 +60,21 @@ defmodule EsExif do
   defp trim_value(str), do: str
 
   # parse value to correct types
-  defp parse_value(value, "DateTimeDigitized") when is_binary(value) do
-    parse_date(value)
-  end
+  defp parse_value(value, name) when is_binary(value) do
+    cond do
+      name in @date_fields ->
+        parse_date(value)
 
-  defp parse_value(value, "DateTimeOriginal") when is_binary(value) do
-    parse_date(value)
-  end
+      name in @integer_fields ->
+        parse_integer(value)
 
-  defp parse_value(value, name), do: value
+      name in @float_fields ->
+        parse_float(value)
+
+      true ->
+        value
+    end
+  end
 
   defp parse_date(value) do
     with {:ok, date} <- NaiveDateTime.from_iso8601(value) do
@@ -51,6 +82,20 @@ defmodule EsExif do
     else
       {:error, _} ->
         value
+    end
+  end
+
+  def parse_integer(value) do
+    case Integer.parse(value) do
+      {v, _} -> v
+      _ -> value
+    end
+  end
+
+  def parse_float(value) do
+    case Float.parse(value) do
+      {f, _} -> f
+      _ -> value
     end
   end
 end
