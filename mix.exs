@@ -7,8 +7,15 @@ defmodule EsExif.MixProject do
       version: "0.1.0",
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      description: description(),
+      deps: deps(),
+      name: "EsExif",
+      source_url: "https://github.com/29decibel/es_exif"
     ]
+  end
+
+  defp description() do
+    "Elixir wrapper to get Exif info of image. Wrapper of Rust kamadak-exif."
   end
 
   # Run "mix help compile.app" to learn about applications.
