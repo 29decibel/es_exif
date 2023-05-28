@@ -8,7 +8,8 @@ defmodule EsExif do
       crate: "exifrs",
       base_url: "https://github.com/29decibel/es_exif/releases/download/v#{version}",
       force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
-      targets: Enum.uniq(RustlerPrecompiled.Config.default_targets()),
+      targets:
+        Enum.uniq(["aarch64-unknown-linux-musl" | RustlerPrecompiled.Config.default_targets()]),
       version: version
 
     # When your NIF is loaded, it will override this function.
