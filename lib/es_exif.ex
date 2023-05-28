@@ -85,14 +85,14 @@ defmodule EsExif do
     end
   end
 
-  def parse_integer(value) do
+  defp parse_integer(value) do
     case Integer.parse(value) do
       {v, _} -> v
       _ -> value
     end
   end
 
-  def parse_float(value) do
+  defp parse_float(value) do
     case Float.parse(value) do
       {f, _} -> f
       _ -> value
