@@ -1,7 +1,14 @@
 defmodule EsExif do
   defmodule Native do
+    version = Mix.Project.config()[:version]
     @moduledoc false
-    use Rustler, otp_app: :es_exif, crate: "exifrs"
+    # use Rustler, otp_app: :es_exif, crate: "exifrs"
+    use RustlerPrecompiled,
+      otp_app: :es_exif,
+      crate: "exifrs",
+      base_url: "https://github.com/29decibel/es_exif/releases/download/v0.1.0",
+      force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
+      version: version
 
     # When your NIF is loaded, it will override this function.
     def parse(_a), do: :erlang.nif_error(:nif_not_loaded)

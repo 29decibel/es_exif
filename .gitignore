@@ -26,3 +26,5 @@ es_exif-*.tar
 /tmp/
 
 .DS_Store
+
+/priv/native

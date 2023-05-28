@@ -30,15 +30,26 @@ defmodule EsExif.MixProject do
   defp deps do
     [
       {:rustler, "~> 0.24.0"},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
+      {:rustler_precompiled, "~> 0.6.1"}
     ]
   end
 
   defp package() do
     [
       name: "es_exif",
-      files: ~w(lib priv .formatter.exs mix.exs README* LICENSE* native),
-      licenses: ["MIT License"],
+      files: ~w(
+        lib
+        priv
+        .formatter.exs
+        mix.exs
+        README*
+        LICENSE*
+        native/exifrs/.cargo
+        native/exifrs/src
+        native/exifrs/Cargo*
+        checksum-*.exs),
+      licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/29decibel/es_exif"}
     ]
   end
