@@ -11,21 +11,25 @@ defmodule EsExif do
   Documentation for `EsExif`.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> EsExif.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
-
   def parse(image_path) when is_binary(image_path) do
-    image_path
-    |> Native.parse()
+    case image_path |> Native.parse() do
+      {:ok, fields} ->
+        result =
+          fields
+          |> Enum.reduce(%{}, fn %{name: name, value: value}, acc ->
+            acc |> Map.put_new(name, value |> trim_value)
+          end)
+
+        {:ok, result}
+
+      {:error, err} ->
+        {:error, err}
+    end
   end
+
+  defp trim_value(str) when is_binary(str) do
+    str |> String.trim("\"") |> String.trim()
+  end
+
+  defp trim_value(str), do: str
 end
