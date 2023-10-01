@@ -29,9 +29,9 @@ defmodule EsExif.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler, "~> 0.24.0"},
+      {:rustler, "~> 0.29.1"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:rustler_precompiled, "~> 0.6.1"}
+      {:rustler_precompiled, "~> 0.7"}
     ]
   end
 
